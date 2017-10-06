@@ -4,7 +4,9 @@ module type S = sig
 end
 
 let l: (module S) list = [
+  (module Backend_c);
   (module Backend_debug);
+  (module Backend_ocaml);
 ]
 
 

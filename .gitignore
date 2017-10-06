@@ -3,6 +3,7 @@
 *.byte
 _build/
 .merlin
+a.out
 
 *.pcapng
 *.pcap

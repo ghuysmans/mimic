@@ -8,6 +8,7 @@ module Rx = struct
     compile
 
   let sql =
+    (* FIXME what about queries on multiple lines? *)
     start *> blanks *> str "Query: " *> regex Re.(rep any) |>
     compile
 end
@@ -19,6 +20,8 @@ let read pcap =
   let argv = [| p; "-n"; "-r"; pcap; "-O"; "pgsql"; "pgsql.query" |] in
   let s = Lwt_process.pread_lines (p, argv) in
   let port = ref None in
+  (* TODO generate an event stream: open, prepare, close! *)
+  (* TODO detect RST and unexpected disconnections *)
   let f line queries =
     match Tyre.exec Rx.tcp line with
     | Error (`ConverterFailure e) ->
