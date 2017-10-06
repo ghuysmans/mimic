@@ -16,3 +16,16 @@ opam install lwt cmdliner tyre
 ```shell
 opam install pgocaml
 ```
+
+## Limitations
+
+You'll have to configure tshark to decode packets on exotic ports as pgsql's.
+To do so, append this to your `~/.wireshark/decode_as_entries` file:
+```
+decode_as_entry: tcp.port,3000,(none),PGSQL
+```
+
+Connections aren't opened at the same time as they're in the capture.
+Backends should process event streams instead of query streams!
+
+Parsing probably fails with multiple-line queries.
